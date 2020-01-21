@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="WeatherApp.Weather">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Today's Weather" />
+        <ToolbarItem x:Name="menu_button"
+             Icon="menu.png"
+             Clicked="Menu_Clicked" 
+             />
+    </ContentPage.ToolbarItems>
+
+    <!--section 1-->
+    <Grid VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <!--<RowDefinition Height="*"/>this star takes up all the remaining space-->
+        </Grid.RowDefinitions>
+        <Image Source="overlay.png" Aspect="Fill" HeightRequest="300" VerticalOptions="StartAndExpand"/>
+        <!--section 2-->
+        <!--<StackLayout Orientation="Vertical" Spacing="20" Margin="10, 25">
+            <Label  Text="Longitude: " x:Name="longr" FontSize="24" HorizontalOptions="Center" TextColor="White"/>
+            <Label  Text="Latitude: " x:Name="lat" FontSize="24" HorizontalOptions="Center" TextColor="White"/>
+            <Label  Text="Altitude: " x:Name="alt" FontSize="24" HorizontalOptions="Center" TextColor="White"/>
+            <Button Text="Update Location" FontSize="24" VerticalOptions="Center" Clicked="Locate"/>
+        </StackLayout>-->
+        
+        <!--section 3-->
+        <StackLayout Orientation="Vertical" Margin="0,20" >
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+                <Image Source="weather.png" WidthRequest="50" HeightRequest="50" VerticalOptions="Center"/>
+                <Label Text="12" TextColor="White" FontSize="70" FontAttributes="Bold" VerticalOptions="Center"/>
+                <Label Text="°F" TextColor="White" FontSize="34" VerticalOptions="Center"/>
+            </StackLayout>
+            <Label Text="Gamer Gunk Storm" TextColor="White" FontSize="16" HorizontalOptions="Center" x:Name="Quick_Report"/>
+            <Label Text="November 7, 2019 9:00am" TextColor="White" FontSize="16" HorizontalOptions="Center"/>
+        </StackLayout>
+
+        <!--</Grid>-->
+        
+    <!--Row 2-->
+    <Frame Grid.Row="2" HasShadow="True" CornerRadius="10" Margin="20,-40,20,0" Padding="0" HeightRequest="175" VerticalOptions="Start">
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical" Spacing="10" HorizontalOptions="CenterAndExpand">
+                <Image Source="humidity.png" HeightRequest="25" HorizontalOptions="Center"/>
+                <StackLayout Spacing="7" HorizontalOptions="CenterAndExpand">
+                    <Label Text="50%" TextColor="Black" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <Label Text="Humidity" TextColor="#7D7D7D" FontSize="11" HorizontalOptions="Center"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Grid.Column="1" Orientation="Vertical" Spacing="10" HorizontalOptions="CenterAndExpand">
+                <Image Source="wind.png" HeightRequest="25" HorizontalOptions="Center"/>
+                <StackLayout Spacing="7" HorizontalOptions="CenterAndExpand">
+                    <Label Text="2.6 m/s" TextColor="Black" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <Label Text="Wind" TextColor="#7D7D7D" FontSize="11" HorizontalOptions="Center"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Grid.Column="2" Orientation="Vertical" Spacing="10" HorizontalOptions="CenterAndExpand">
+                <Image Source="pressure.png" HeightRequest="25" HorizontalOptions="Center"/>
+                <StackLayout Spacing="7" HorizontalOptions="CenterAndExpand">
+                    <Label Text="1011 hpa" TextColor="Black" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <Label Text="Pressure" TextColor="#7D7D7D" FontSize="11" HorizontalOptions="Center"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Grid.Column="3" Orientation="Vertical" Spacing="10" HorizontalOptions="CenterAndExpand">
+                <Image Source="cloudiness.png" HeightRequest="25" HorizontalOptions="Center"/>
+                <StackLayout Spacing="7" HorizontalOptions="CenterAndExpand">
+                    <Label Text="24%" TextColor="Black" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <Label Text="Cloudiness" TextColor="#7D7D7D" FontSize="11" HorizontalOptions="Center"/>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </Frame>
+        
+    <!--Row 3-->
+    <StackLayout Grid.Row="3" BackgroundColor="Transparent" Orientation="Horizontal" Margin="20" HorizontalOptions="End">
+            <ImageButton x:Name="ListBtn" Source="listColor.png" WidthRequest="15" HeightRequest="15"/>
+            <ImageButton x:Name="GridBtn" Source="Grid.png" WidthRequest="15" HeightRequest="15"/>
+        </StackLayout>
+        
+        <!--ROW 4-->
+        <ListView x:Name="WeatherForecastList" ItemsSource="{Binding Weathers}" SeparatorVisibility="None"
+                  Grid.Row="3" Margin="20,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate >
+                    <ViewCell>
+                        <Frame BackgroundColor="White" BorderColor="#F0F0F0" Padding="5" Margin="0,0,0,5" HasShadow="False">
+                            <Grid HeightRequest="50" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Date}" TextColor="#757575" FontSize="12" VerticalOptions="Center" Margin="20,0"/>
+                                <Image Grid.Column="1" Source="{Binding Icon}" WidthRequest="38" HeightRequest="50" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <StackLayout Grid.Column="2" Orientation="Horizontal" Margin="20,0" HorizontalOptions="End" VerticalOptions="Center">
+                                    <Label Text="{Binding Temperature}" TextColor="Black" FontSize="24" FontAttributes="Bold" VerticalOptions="Start"/>
+                                    <Label Text="°C" TextColor="Black" FontSize="14" VerticalOptions="Start"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+
+
+</ContentPage>
