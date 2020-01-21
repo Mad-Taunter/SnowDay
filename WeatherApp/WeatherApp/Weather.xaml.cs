@@ -65,9 +65,8 @@ namespace WeatherApp
         public async Task<JObject> FindWeather()
         {
             var httpClient = new HttpClient();
-            var response = await httpClient.GetStringAsync("https://api.weather.gov/gridpoints/CLE/117,46/forecast");
-            JObject results = JObject.Parse(response);
-            return results;
+            var response = await httpClient.GetStringAsync("https://api.weather.gov/gridpoints/CLE/117,46/forecast").ConfigureAwait(false);
+            return JObject.Parse(response);
         }
 
         async void Menu_Clicked(object sender, EventArgs e)
